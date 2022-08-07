@@ -1,0 +1,16 @@
+
+##############################################################################
+#         WARNING: Unauthorized access to this system is forbidden!          # 
+#                All connections are monitored and recorded.                 #
+#         Disconnect IMMEDIATELY if you are not an authorized user!          #
+#                                                                            #
+# -------------------------------------------------------------------------- #
+# Username stolen from: Brave New World by Aldous Huxley                     #
+# SOMA: numbs any sort of discomfort, anxiety, stress and general uneasiness #
+# -------------------------------------------------------------------------- #
+# sudoers: soma ALL=(ALL) NOPASSWD:ALL                                       #
+# nmap-ncat: nc, ncat                                                        #
+# bind-utils: nslookup, dig, host, nsupdate, arpaname                        #
+# iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]        #
+##############################################################################
+
