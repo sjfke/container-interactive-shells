@@ -1,8 +1,12 @@
-# Docker Container 'rhel85-ubi-soma'
+# RHEL Universal Base Image Docker Containers 'rhel85-ubi-containers'
+
+A collection of simple command line Docker containers for troubleshooting and debugging.
+
+## SomaCLI
 
 RHEL UBI-8-5 Interactive Non-Root Bash Shell with nmap-ncat, bind-utils, iputils
 
-## Interacive Bash Shell
+### Interacive Bash Shell
 
 The RHEL UBI 8-5 image includes:
 * sudoers: with: 'soma ALL=(ALL) NOPASSWD:ALL'
@@ -10,7 +14,7 @@ The RHEL UBI 8-5 image includes:
 * bind-utils: nslookup, dig, host, nsupdate, arpaname
 * iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]
 
-## Files
+### Files
 
 * Dockerfile: Docker configuration file
 * bashrc: /home/soma/.bashrc
@@ -18,7 +22,7 @@ The RHEL UBI 8-5 image includes:
 * motd: /etc/motd, /etc/issue.net
 * soma: /etc/sudoers.d/soma
 
-## Usage
+### Usage
 
 ```bash
 $ docker pull docker.io/sjfke/rhel85-ubi-soma:0.1.0
