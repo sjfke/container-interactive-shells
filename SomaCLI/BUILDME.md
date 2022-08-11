@@ -4,7 +4,11 @@ RHEL-8 UBI Interactive Non-Root Bash Shell with nmap-ncat, bind-utils, iputils
 
 ## Configuring Git to handle line endings
 
-* [](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#refreshing-a-repository-after-changing-line-endings)
+To avoid Windows/MacOS Unix line ending madness when using GIT, needs configuring.
+Files are best generated during the Docker installation using a script (create-unix-files.sh)
+
+* [docs.github.com: Handling line endings](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)
+* [rehansaeed.com: gitattributes Best Practices](https://rehansaeed.com/gitattributes-best-practices/)
 
 ```powershell
 PS1> git config --global core.autocrlf true # Global settings for line endings
