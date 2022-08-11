@@ -1,4 +1,4 @@
-# RHEL Universal Base Image Docker Containers 'rhel85-ubi-containers'
+# RHEL-8 Universal Base Image Docker Containers
 
 A collection of simple command line Docker containers for troubleshooting and debugging based on the RHEL-8 UBI image.
 
