@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 
 # Create soma sudoers file
 cat  > /etc/sudoers.d/soma <<EOT
