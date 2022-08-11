@@ -2,6 +2,33 @@
 
 RHEL-8 UBI Interactive Non-Root Bash Shell with nmap-ncat, bind-utils, iputils
 
+## Configuring Git to handle line endings
+
+* [](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#refreshing-a-repository-after-changing-line-endings)
+
+```powershell
+PS1> git config --global core.autocrlf true # Global settings for line endings
+PS1> cat <repo>\.git\info\gitattributes
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.c text
+*.h text
+
+# Declare files that will always have CRLF line endings on checkout.
+*.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+
+# Force Bash Shell scripts to UNIX LF
+*.sh text eol=lf
+
+```
+
 ## DockerHub using Windows Docker Desktop
 
 * [DockerHub Repositories](https://docs.docker.com/docker-hub/repos/)
