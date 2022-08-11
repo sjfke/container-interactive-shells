@@ -1,10 +1,12 @@
 # RHEL Universal Base Image Docker Containers 'rhel85-ubi-containers'
 
-A collection of simple command line Docker containers for troubleshooting and debugging.
+A collection of simple command line Docker containers for troubleshooting and debugging based on the RHEL-8 UBI image.
 
 ## SomaCLI
 
-RHEL UBI-8-5 Interactive Non-Root Bash Shell with nmap-ncat, bind-utils, iputils
+RHEL UBI-8-5 Interactive with Non-Root Bash Shell with login that provides:
+
+* nmap-ncat, bind-utils, iputils
 
 ### Interacive Bash Shell
 
@@ -16,7 +18,11 @@ The RHEL UBI 8-5 image includes:
 
 ### Files
 
-* Dockerfile: Docker configuration file
+* Dockerfile: Docker configuration file.
+* BUILDME: Image build, deployment and test.
+
+Generated using: `create-unix-files.sh`
+
 * bashrc: /home/soma/.bashrc
 * bash_profile: /home/soma/.bash_profile
 * motd: /etc/motd, /etc/issue.net
