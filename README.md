@@ -31,16 +31,21 @@ Generated using: `create-unix-files.sh`
 ### Usage
 
 ```bash
-$ docker pull docker.io/sjfke/rhel85-ubi-soma:0.1.0
-$ docker run -it --name lazy-dog docker.io/rhel85-ubi-soma:0.1.0
+$ docker pull docker.io/sjfke/rhel8-ubi-soma:8.5
+$ docker run -it --name lazy-dog docker.io/sjfke/rhel8-ubi-soma:8.5
 
-##############################################################################
+# Docker strips the docker.io prefix, so it is effectively
+
+$ docker pull docker pull sjfke/rhel8-ubi-soma:8.5
+$ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.5
+
+###############################################################################
 #         WARNING: Unauthorized access to this system is forbidden!          #
 #                All connections are monitored and recorded.                 #
 #         Disconnect IMMEDIATELY if you are not an authorized user!          #
 #                                                                            #
 # -------------------------------------------------------------------------- #
-# Username stolen from: Brave New World by Aldous Huxley                     #
+# Idea stolen from: Brave New World by Aldous Huxley                         #
 # SOMA: numbs any sort of discomfort, anxiety, stress and general uneasiness #
 # -------------------------------------------------------------------------- #
 # sudoers: soma ALL=(ALL) NOPASSWD:ALL                                       #
@@ -52,7 +57,8 @@ $ docker run -it --name lazy-dog docker.io/rhel85-ubi-soma:0.1.0
 [soma@32159e02715f ~]$ sudo -l
 [soma@32159e02715f ~]$ exit
 
+# Quay.io: Still to deploy and test
 From Quay.io:
-$ docker pull quay.io/sjfke/rhel85-ubi-soma:0.1.0
-$ docker run -it --name lazy-cat quay.io/rhel85-ubi-soma:0.1.0
+$ docker pull quay.io/sjfke/rhel8-ubi-soma:8.5
+$ docker run -it --name lazy-cat quay.io/rhel8-ubi-soma:8.5
 ```
