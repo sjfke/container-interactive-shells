@@ -37,29 +37,57 @@ PS1> cat <repo>\.git\info\gitattributes
 
 * [DockerHub Repositories](https://docs.docker.com/docker-hub/repos/)
 
+### Local build, deploy and test
+
 ```powershell
 PS1> docker login docker.io -u sjfke
+PS1> cat dockerhub-win10-access-token.txt | docker login -u sjfke --password-stdin
 
-PS1> docker build --no-cache --tag sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0 -f ./Dockerfile $pwd
-PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0
-
+# Build, deploy and test
 PS1> docker images
-REPOSITORY                                   TAG       IMAGE ID       CREATED        SIZE
-rhel8-ubi-containers                         0.1.0     e0efe0749389   2 hours ago    302MB
-sjfke/rhel8-ubi-containers/rhel85-ubi-soma   0.1.0     e0efe0749389   2 hours ago    302MB
-sjfke/rhel8-ubi-containers                   0.1.0     e0efe0749389   2 hours ago    302MB
-localhost/rhel85-ubi-soma                    0.1.0     2d7e2b0b3b6b   46 hours ago   302MB
-registry.access.redhat.com/ubi8/ubi          8.5       202c1768b1f7   3 months ago   216MB
+REPOSITORY                            TAG       IMAGE ID       CREATED        SIZE
+registry.access.redhat.com/ubi8/ubi   8.5       202c1768b1f7   3 months ago   216MB
 
-PS1> docker tag sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0 sjfke/rhel8-ubi-containers:0.1.0
-PS1> docker push rhel8-ubi-containers:0.1.0
+PS1> docker build --no-cache --tag sjfke/rhel8-ubi-containers/rhel8-ubi-soma:8.5 -f ./Dockerfile $pwd
+PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel8-ubi-soma:8.5
+```
+### Tag and Push to DockerHub
+
+* [tutorialspoint.com: Docker - Public Repositories](https://www.tutorialspoint.com/docker/docker_public_repositories.htm)
+
+```powershell
+PS1> docker images
+REPOSITORY                                  TAG       IMAGE ID       CREATED         SIZE
+sjfke/rhel8-ubi-containers/rhel8-ubi-soma   8.5       45766b337ea4   4 minutes ago   302MB
+registry.access.redhat.com/ubi8/ubi         8.5       202c1768b1f7   3 months ago    216MB
+
+PS1> docker tag 45766b337ea4 sjfke/rhel8-ubi-soma:8.5 # tag with <repo>:<image-version>
+PS1> docker images
+REPOSITORY                                  TAG       IMAGE ID       CREATED          SIZE
+sjfke/rhel8-ubi-containers/rhel8-ubi-soma   8.5       45766b337ea4   10 minutes ago   302MB
+sjfke/rhel8-ubi-soma                        8.5       45766b337ea4   10 minutes ago   302MB
+registry.access.redhat.com/ubi8/ubi         8.5       202c1768b1f7   3 months ago     216MB
+
+PS1> docker push sjfke/rhel8-ubi-soma:8.5 # push tag with <repo>:<image-version>
+The push refers to repository [docker.io/sjfke/rhel8-ubi-soma]
+ad2f2a87562f: Pushed
+97af94709826: Pushed
+0fbfed2f82f5: Pushed
+d49d5ba4975c: Pushed
+173c4699f0ae: Pushed
+c86122b5e4d3: Pushed
+3813924f3fa4: Pushed
+8.5: digest: sha256:a27d6433f7d069aa4db58e1849b203f52c1b29731ada64b17bd24ff2f4997705 size: 1778
+
 ```
 ## Quay.IO using RHEL Podman
 
 ```bash
 $ podman login quay.io -u sjfke
 
+# Build, deploy and test
 $ podman build --tag quay.io/sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0 -f ./Dockerfile $PWD
+$ podman run -it --name crazy-toad sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0
 
 $ podman images
 REPOSITORY                                            TAG         IMAGE ID      CREATED        SIZE
