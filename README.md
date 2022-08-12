@@ -4,7 +4,7 @@ A collection of simple command line Docker containers for troubleshooting and de
 
 ## SomaCLI
 
-RHEL UBI-8-5 Interactive with Non-Root Bash Shell with login that provides:
+RHEL-8 UBI  Interactive with Non-Root Bash Shell with login that provides:
 
 * nmap-ncat, bind-utils, iputils
 

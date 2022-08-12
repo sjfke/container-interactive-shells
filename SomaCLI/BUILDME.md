@@ -48,8 +48,8 @@ PS1> docker images
 REPOSITORY                            TAG       IMAGE ID       CREATED        SIZE
 registry.access.redhat.com/ubi8/ubi   8.5       202c1768b1f7   3 months ago   216MB
 
-PS1> docker build --no-cache --tag sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0 -f ./Dockerfile $pwd
-PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0
+PS1> docker build --no-cache --tag sjfke/rhel8-ubi-containers/rhel8-ubi-soma:8.5 -f ./Dockerfile $pwd
+PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel8-ubi-soma:8.5
 ```
 ### Tag and Push to DockerHub
 
@@ -57,27 +57,27 @@ PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel85-ubi-soma
 
 ```powershell
 PS1> docker images
-REPOSITORY                                   TAG       IMAGE ID       CREATED         SIZE
-sjfke/rhel8-ubi-containers/rhel85-ubi-soma   0.1.0     5215db012424   8 seconds ago   302MB
-registry.access.redhat.com/ubi8/ubi          8.5       202c1768b1f7   3 months ago    216MB
+REPOSITORY                                  TAG       IMAGE ID       CREATED         SIZE
+sjfke/rhel8-ubi-containers/rhel8-ubi-soma   8.5       45766b337ea4   4 minutes ago   302MB
+registry.access.redhat.com/ubi8/ubi         8.5       202c1768b1f7   3 months ago    216MB
 
-PS1> docker tag 5215db012424 sjfke/rhel8-ubi-containers:0.1.0 # tag with <repo>:<image-version>
+PS1> docker tag 45766b337ea4 sjfke/rhel8-ubi-soma:8.5 # tag with <repo>:<image-version>
 PS1> docker images
-REPOSITORY                                   TAG       IMAGE ID       CREATED              SIZE
-sjfke/rhel8-ubi-containers                   0.1.0     5215db012424   About a minute ago   302MB
-sjfke/rhel8-ubi-containers/rhel85-ubi-soma   0.1.0     5215db012424   About a minute ago   302MB
-registry.access.redhat.com/ubi8/ubi          8.5       202c1768b1f7   3 months ago         216MB
+REPOSITORY                                  TAG       IMAGE ID       CREATED          SIZE
+sjfke/rhel8-ubi-containers/rhel8-ubi-soma   8.5       45766b337ea4   10 minutes ago   302MB
+sjfke/rhel8-ubi-soma                        8.5       45766b337ea4   10 minutes ago   302MB
+registry.access.redhat.com/ubi8/ubi         8.5       202c1768b1f7   3 months ago     216MB
 
-PS1> docker push sjfke/rhel8-ubi-containers:0.1.0 # push tag with <repo>:<image-version>
-The push refers to repository [docker.io/sjfke/rhel8-ubi-containers]
-0c647a406b8f: Pushed
-40183a5783fe: Pushed
-71207755f68e: Pushed
-08f010e306a6: Pushed
-173c4699f0ae: Layer already exists
-c86122b5e4d3: Layer already exists
-3813924f3fa4: Layer already exists
-0.1.0: digest: sha256:e1ed567af1144485a3313344f31bcfdf397c33d653b7b6813ce7a2e38224b1e9 size: 1778
+PS1> docker push sjfke/rhel8-ubi-soma:8.5 # push tag with <repo>:<image-version>
+The push refers to repository [docker.io/sjfke/rhel8-ubi-soma]
+ad2f2a87562f: Pushed
+97af94709826: Pushed
+0fbfed2f82f5: Pushed
+d49d5ba4975c: Pushed
+173c4699f0ae: Pushed
+c86122b5e4d3: Pushed
+3813924f3fa4: Pushed
+8.5: digest: sha256:a27d6433f7d069aa4db58e1849b203f52c1b29731ada64b17bd24ff2f4997705 size: 1778
 
 ```
 ## Quay.IO using RHEL Podman
