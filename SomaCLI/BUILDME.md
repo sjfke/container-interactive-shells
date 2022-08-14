@@ -37,7 +37,7 @@ PS1> cat <repo>\.git\info\gitattributes
 
 * [DockerHub Repositories](https://docs.docker.com/docker-hub/repos/)
 
-### Local build, deploy and test
+### Docker Local build, deploy and test
 
 ```powershell
 PS1> docker login docker.io -u sjfke
@@ -82,16 +82,52 @@ c86122b5e4d3: Pushed
 ```
 ## Quay.IO using RHEL Podman
 
+### Podman Local build, deploy and test
+
+* [Quay.IO: Robot Accounts](http://docs.quay.io/glossary/robot-accounts.html)
+
 ```bash
 $ podman login quay.io -u sjfke
+$ podman login -u=<robot-account> -p=<robot-account-password> quay.io
 
 # Build, deploy and test
-$ podman build --tag quay.io/sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0 -f ./Dockerfile $PWD
-$ podman run -it --name crazy-toad sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0
+$ podman build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.5 -f ./Dockerfile $PWD
+$ podman run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.5
+
+### Commit container and Push to Quay.IO
+
+* [Quay.IO: Getting Started with Quay.io](http://docs.quay.io/solution/getting-started.html)
 
 $ podman images
-REPOSITORY                                            TAG         IMAGE ID      CREATED        SIZE
-quay.io/sjfke/rhel8-ubi-containers/rhel85-ubi-soma    0.1.0       0518a1f14b02  2 hours ago    321 MB
-registry.access.redhat.com/ubi8/ubi                   8.5         202c1768b1f7  3 months ago   235 MB
-$ podman push quay.io/sjfke/rhel8-ubi-containers/rhel85-ubi-soma:0.1.0
+REPOSITORY                               TAG         IMAGE ID      CREATED             SIZE
+quay.io/sjfke/rhel8-ubi-soma             8.5         2cf12092c3ef  About a minute ago  321 MB
+registry.access.redhat.com/ubi8/ubi      8.5         202c1768b1f7  3 months ago        235 MB
+
+$ podman ps -l
+CONTAINER ID  IMAGE                             COMMAND               CREATED        STATUS                    PORTS       NAMES
+b4826e4acf63  quay.io/sjfke/rhel8-ubi-soma:8.5  /bin/sh -c /bin/b...  8 minutes ago  Exited (0) 8 minutes ago              crazy-toad
+
+
+$ podman commit b4826e4acf63 quay.io/sjfke/rhel8-ubi-soma:8.5 # tag the container with <repo>:<image-version>
+$ podman container ls -a
+CONTAINER ID  IMAGE                             COMMAND               CREATED         STATUS                     PORTS       NAMES
+b4826e4acf63  quay.io/sjfke/rhel8-ubi-soma:8.5  /bin/sh -c /bin/b...  14 minutes ago  Exited (0) 14 minutes ago              crazy-toad
+
+$ podman images
+REPOSITORY                               TAG         IMAGE ID      CREATED        SIZE
+quay.io/sjfke/rhel8-ubi-soma             8.5         2cf12092c3ef  2 minutes ago  321 MB
+registry.access.redhat.com/ubi8/ubi      8.5         202c1768b1f7  3 months ago   235 MB
+
+$ podman push quay.io/sjfke/rhel8-ubi-soma:8.5 # push tag with <repo>:<image-version>
+Getting image source signatures
+Copying blob 1b7b9bd03f60 done  
+Copying blob f9535e3067b1 done  
+Copying blob d2991ce7a82b done  
+Copying blob 844ad7a91e17 done  
+Copying blob 3813924f3fa4 skipped: already exists  
+Copying blob c86122b5e4d3 skipped: already exists  
+Copying blob 5f70bf18a086 done  
+Copying config 93c4de9533 done  
+Writing manifest to image destination
+Storing signatures
 ```
