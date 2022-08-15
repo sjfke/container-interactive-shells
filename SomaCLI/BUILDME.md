@@ -131,3 +131,24 @@ Copying config 93c4de9533 done
 Writing manifest to image destination
 Storing signatures
 ```
+## Updating quay.io and dockerhub using docker
+
+After updating the Docker file, to rebuild and push, this is for 8.5 to 8.6.
+
+```powershell
+# Docker
+PS1> cat <dockerhub-win10-access-token.txt> | docker login -u sjfke --password-stdin
+PS1> docker build --no-cache --tag sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd
+PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-soma:8.6
+PS1> docker images # need IMAGE ID for tag
+PS1> docker tag b5244edad760 sjfke/rhel8-ubi-soma:8.6
+PS1> docker push sjfke/rhel8-ubi-soma:8.6
+
+# Quay.IO
+PS1> docker login -u=<robot-account> -p=<password-hash> quay.io
+PS1> docker build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd # NB quay.io prefix
+PS1> docker run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.6
+PS1> docker ps -l # need CONTAINER ID for commit
+PS1> docker commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
+PS1> docker push quay.io/sjfke/rhel8-ubi-soma:8.6
+```

@@ -1,16 +1,16 @@
 # syntax=docker/dockerfile:1
 
-FROM registry.access.redhat.com/ubi8/ubi:8.5
+FROM registry.access.redhat.com/ubi8/ubi:8.6
 
 # TODO: Rename the builder environment variable to inform users about application you provide them
 # ENV BUILDER_VERSION 1.0
 
 # TODO: Set labels used in OpenShift to describe the builder image
-LABEL io.k8s.name="rhel8-ubi:8.5" \
+LABEL io.k8s.name="rhel8-ubi:8.6" \
       io.k8s.description="RHEL8 UBI with netcat, bind, iputils" \
       io.k8s.display-name="rhel8-ubi" \
-      io.k8s.version="0.1.0" \
-      io.openshift.tags="rhel8-ubi,0.1.0"
+      io.k8s.version="8.6" \
+      io.openshift.tags="rhel8-ubi,8.6"
 
 WORKDIR /home/soma
 
