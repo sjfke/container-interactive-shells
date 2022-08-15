@@ -10,11 +10,19 @@ RHEL-8 UBI  Interactive with Non-Root Bash Shell with login that provides:
 
 ### Interacive Bash Shell
 
-The RHEL UBI 8-5 image includes:
+The RHEL UBI 8 image includes:
 * sudoers: with: 'soma ALL=(ALL) NOPASSWD:ALL'
 * nmap-ncat: nc, ncat
 * bind-utils: nslookup, dig, host, nsupdate, arpaname
 * iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]
+
+The original version was based on rhel8-ubi:8.5 but:
+
+* Is periodically updated based on the quay.io security-scan.
+* Issues not yet fixed in the RHEL UBI image are not handled.
+* Older releases are (annotated) tagged and pushed to github.
+* Updated container images are pushed to docker.io and quay.io.
+* Older container images are periodically removed.
 
 ### Files
 
@@ -31,13 +39,13 @@ Generated using: `create-unix-files.sh`
 ### Usage
 
 ```bash
-$ docker pull docker.io/sjfke/rhel8-ubi-soma:8.5
-$ docker run -it --name lazy-dog docker.io/sjfke/rhel8-ubi-soma:8.5
+$ docker pull docker.io/sjfke/rhel8-ubi-soma:8.6
+$ docker run -it --name lazy-dog docker.io/sjfke/rhel8-ubi-soma:8.6
 
 # Docker strips the docker.io prefix, so it is effectively
 
-$ docker pull docker pull sjfke/rhel8-ubi-soma:8.5
-$ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.5
+$ docker pull docker pull sjfke/rhel8-ubi-soma:8.6
+$ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.6
 
 ###############################################################################
 #         WARNING: Unauthorized access to this system is forbidden!          #
@@ -57,8 +65,8 @@ $ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.5
 [soma@32159e02715f ~]$ sudo -l
 [soma@32159e02715f ~]$ exit
 
-# Quay.io: Still to deploy and test
-From Quay.io:
-$ docker pull quay.io/sjfke/rhel8-ubi-soma:8.5
-$ docker run -it --name lazy-cat quay.io/rhel8-ubi-soma:8.5
+# For Quay.io containers the quay.io prefix *must be* supplied. 
+
+$ docker pull quay.io/sjfke/rhel8-ubi-soma:8.6
+$ docker run -it --name lazy-cat quay.io/sjfke/rhel8-ubi-soma:8.6
 ```

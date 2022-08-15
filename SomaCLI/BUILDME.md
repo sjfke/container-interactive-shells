@@ -93,11 +93,13 @@ $ podman login -u=<robot-account> -p=<robot-account-password> quay.io
 # Build, deploy and test
 $ podman build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.5 -f ./Dockerfile $PWD
 $ podman run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.5
+```
 
 ### Commit container and Push to Quay.IO
 
 * [Quay.IO: Getting Started with Quay.io](http://docs.quay.io/solution/getting-started.html)
 
+```bash
 $ podman images
 REPOSITORY                               TAG         IMAGE ID      CREATED             SIZE
 quay.io/sjfke/rhel8-ubi-soma             8.5         2cf12092c3ef  About a minute ago  321 MB
