@@ -1,6 +1,16 @@
-# RHEL-8 Universal Base Image Docker Containers
+# RHEL-8 Universal Base Image Pods and Containers
 
-A collection of simple command line Docker containers for troubleshooting and debugging based on the RHEL-8 UBI image.
+Guidance for creating pods or containers inside the cluster for troubleshooting and debugging.
+
+Which are based on the [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/containers/ubi8/ubi/5c359854d70cc534b3a3784e) 
+or [Docker-IO: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8), 
+image, but [BusyBox](https://hub.docker.com/_/busybox) examples are also provided.
+
+If deploying ``OpenShift Kubernetes Environment`` such as [Red Hat OpenShift Local (formerly Red Hat CodeReady Containers)](https://developers.redhat.com/products/openshift-local/overview)
+there are an extra level security constraints to be taken into account, [SCC Constraints](#scc-constraints).
+
+## Debug RHEL-8 UBI Pod 
+
 
 ## SomaCLI
 
@@ -77,3 +87,54 @@ $ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.6
 $ docker pull quay.io/sjfke/rhel8-ubi-soma:8.6
 $ docker run -it --name lazy-cat quay.io/sjfke/rhel8-ubi-soma:8.6
 ```
+
+
+## SCC Constraints
+
+The OpenShift Container Platform, has an additional set of *Security Context Constraints* (**SCC**), which control the actions a **pod** can perform and what it has the ability to access
+as shown below, with **restricted** being the default. 
+
+All containers are governed [SELINUX](https://www.redhat.com/en/topics/linux/what-is-selinux) and have restrictions on **RUNASUSER**,
+the **_MustRunAsRange_** for example enforces the range `1000660000 -to- 1000669999` for the UNIX `UID` value.
+
+```bash
+kubeadmin$ oc get scc
+NAME                              PRIV    CAPS                   SELINUX     RUNASUSER          FSGROUP     SUPGROUP    PRIORITY     READONLYROOTFS   VOLUMES
+anyuid                            false   <no value>             MustRunAs   RunAsAny           RunAsAny    RunAsAny    10           false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+hostaccess                        false   <no value>             MustRunAs   MustRunAsRange     MustRunAs   RunAsAny    <no value>   false            ["configMap","downwardAPI","emptyDir","hostPath","persistentVolumeClaim","projected","secret"]
+hostmount-anyuid                  false   <no value>             MustRunAs   RunAsAny           RunAsAny    RunAsAny    <no value>   false            ["configMap","downwardAPI","emptyDir","hostPath","nfs","persistentVolumeClaim","projected","secret"]
+hostnetwork                       false   <no value>             MustRunAs   MustRunAsRange     MustRunAs   MustRunAs   <no value>   false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+hostnetwork-v2                    false   ["NET_BIND_SERVICE"]   MustRunAs   MustRunAsRange     MustRunAs   MustRunAs   <no value>   false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+machine-api-termination-handler   false   <no value>             MustRunAs   RunAsAny           MustRunAs   MustRunAs   <no value>   false            ["downwardAPI","hostPath"]
+nonroot                           false   <no value>             MustRunAs   MustRunAsNonRoot   RunAsAny    RunAsAny    <no value>   false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+nonroot-v2                        false   ["NET_BIND_SERVICE"]   MustRunAs   MustRunAsNonRoot   RunAsAny    RunAsAny    <no value>   false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+privileged                        true    ["*"]                  RunAsAny    RunAsAny           RunAsAny    RunAsAny    <no value>   false            ["*"]
+restricted                        false   <no value>             MustRunAs   MustRunAsRange     MustRunAs   RunAsAny    <no value>   false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+restricted-v2                     false   ["NET_BIND_SERVICE"]   MustRunAs   MustRunAsRange     MustRunAs   RunAsAny    <no value>   false            ["configMap","downwardAPI","emptyDir","persistentVolumeClaim","projected","secret"]
+```
+It may be possible to determine what `SCC` is required using:
+
+```bash
+kubeadmin$ oc get pods
+kubeadmin$ oc get pod <pod-name> -o yaml | oc adm scc-subject-review -f - # reading from STDIN '-'
+```
+
+The *official* way to fix this:
+* if necessary, create a `serviceaccount`
+* add `serviceaccount` to the correct `oc adm policy`, most likely `anyuid`
+* if necessary, update or patch the `deployment` to use the `serviceaccount`
+
+```bash
+kubeadmin$ oc create serviceaccount sa-anyuid
+kubeadmin$ oc adm policy add-scc-to-user anyuid -z sa-anyuid
+developer$ oc set serviceaccount deployment/<app-name> sa-anyuid
+```
+
+While documented for `OpenShift 3.11`, another simpler approach is to assigning all authenticated users to `anyuid`, as described in [`USER` in the `Dockerfile`](https://docs.openshift.com/container-platform/3.11/admin_guide/manage_scc.html).
+
+```bash
+kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated      # add all authenticated users
+kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated # remove all authenticated users
+```
+
+The following BLOG post [A Guide to OpenShift and UIDs](https://cloud.redhat.com/blog/a-guide-to-openshift-and-uids) provides a more detailed explanation.
