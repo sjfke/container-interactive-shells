@@ -40,4 +40,6 @@ USER ${UID}
 # TODO: Set the default port for applications built using this image
 # EXPOSE ${PORT}
 
-CMD /bin/bash -li
+ENTRYPOINT /bin/bash -li
+# CMD ["/bin/bash","-c","while true ; do date; sleep 1; done;"]
+# CMD ["/bin/bash","-c","while true ; do sleep 1; done;"]
