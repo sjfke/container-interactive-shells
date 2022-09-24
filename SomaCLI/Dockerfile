@@ -37,9 +37,9 @@ RUN chmod 755 /tmp/create-unix-files.sh && /tmp/create-unix-files.sh && rm /tmp/
 
 USER ${UID}
 
-# TODO: Set the default port for applications built using this image
+# DO NOT SET a default port for applications built using this image
 # EXPOSE ${PORT}
 
 ENTRYPOINT /bin/bash -li
 # CMD ["/bin/bash","-c","while true ; do date; sleep 1; done;"]
-# CMD ["/bin/bash","-c","while true ; do sleep 1; done;"]
+CMD ["/bin/bash","-c","while true ; do sleep 1; done;"]

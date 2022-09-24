@@ -2,40 +2,13 @@
 
 RHEL-8 UBI Interactive Non-Root Bash Shell with nmap-ncat, bind-utils, iputils
 
-## Configuring Git to handle line endings
-
-To avoid Windows/MacOS Unix line ending madness when using GIT, needs configuring.
-Files are best generated during the Docker installation using a script (create-unix-files.sh)
-
-* [docs.github.com: Handling line endings](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)
-* [rehansaeed.com: gitattributes Best Practices](https://rehansaeed.com/gitattributes-best-practices/)
-
-```powershell
-PS1> git config --global core.autocrlf true # Global settings for line endings
-PS1> cat <repo>\.git\info\gitattributes
-# Set the default behavior, in case people don't have core.autocrlf set.
-* text=auto
-
-# Explicitly declare text files you want to always be normalized and converted
-# to native line endings on checkout.
-*.c text
-*.h text
-
-# Declare files that will always have CRLF line endings on checkout.
-*.sln text eol=crlf
-
-# Denote all files that are truly binary and should not be modified.
-*.png binary
-*.jpg binary
-
-# Force Bash Shell scripts to UNIX LF
-*.sh text eol=lf
-
-```
+**NOTE:** To avoid Windows/MacOS Unix line ending madness when using GIT, see [Configuring Git to handle line endings](#configuring-git-to-handle-line-endings)
 
 ## DockerHub using Windows Docker Desktop
 
-* [DockerHub Repositories](https://docs.docker.com/docker-hub/repos/)
+* [DockerHub: Repositories](https://docs.docker.com/docker-hub/repos/)
+* [DockerHub: Personal Access Tokens](https://www.docker.com/blog/docker-hub-new-personal-access-tokens/)
+* [DockerHub: Manage access tokens](https://docs.docker.com/docker-hub/access-tokens/)
 
 ### Docker Local build, deploy and test
 
@@ -153,4 +126,35 @@ PS1> docker run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.6
 PS1> docker ps -l # need CONTAINER ID for commit
 PS1> docker commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
 PS1> docker push quay.io/sjfke/rhel8-ubi-soma:8.6
+```
+
+## Configuring Git to handle line endings
+
+To avoid Windows/MacOS Unix line ending madness when using GIT, needs configuring.
+Files are best generated during the Docker installation using a script (create-unix-files.sh)
+
+* [docs.github.com: Handling line endings](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)
+* [rehansaeed.com: gitattributes Best Practices](https://rehansaeed.com/gitattributes-best-practices/)
+
+```powershell
+PS1> git config --global core.autocrlf true # Global settings for line endings
+PS1> cat <repo>\.git\info\gitattributes
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted
+# to native line endings on checkout.
+*.c text
+*.h text
+
+# Declare files that will always have CRLF line endings on checkout.
+*.sln text eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+
+# Force Bash Shell scripts to UNIX LF
+*.sh text eol=lf
+
 ```

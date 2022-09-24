@@ -1,16 +1,25 @@
-# RHEL-8 Universal Base Image Pods and Containers
+# RHEL-8 Universal Base Image Deployments and Containers
 
-Guidance for creating pods or containers inside the cluster for troubleshooting and debugging.
+Containers for deploying inside the cluster for troubleshooting and debugging.
 
-Which are based on the [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/containers/ubi8/ubi/5c359854d70cc534b3a3784e) 
-or [Docker-IO: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8), 
-image, but [BusyBox](https://hub.docker.com/_/busybox) examples are also provided.
+* [Simple RHEL UBI-8 deployment](#rhel-ubi-8-deployment)
+* [Simple BusyBox deployment](#busybox-deployment)
+* [SomaCLI container with Non-Root Bash Shell, plus `sudo`](#somacli)
 
-If deploying ``OpenShift Kubernetes Environment`` such as [Red Hat OpenShift Local (formerly Red Hat CodeReady Containers)](https://developers.redhat.com/products/openshift-local/overview)
-there are an extra level security constraints to be taken into account, [SCC Constraints](#scc-constraints).
+``OpenShift Kubernetes Environment`` such as [Red Hat OpenShift Local (formerly Red Hat CodeReady Containers)](https://developers.redhat.com/products/openshift-local/overview)
+have are an extra level security constraints to be taken into account, [SCC Constraints](#scc-constraints).
 
-## Debug RHEL-8 UBI Pod 
+## RHEL UBI-8 deployment
 
+* [Introducing the Red Hat Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image)
+* [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56)
+* [DockerHub: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8)
+
+## BusyBox deployment
+
+* [Wikipedia Busybox](https://en.wikipedia.org/wiki/BusyBox)
+* [BusyBox - The Swiss Army Knife of Embedded Linux](https://busybox.net/downloads/BusyBox.html)
+* [BusyBox-Commands](https://boxmatrix.info/wiki/BusyBox-Commands)
 
 ## SomaCLI
 
@@ -88,11 +97,20 @@ $ docker pull quay.io/sjfke/rhel8-ubi-soma:8.6
 $ docker run -it --name lazy-cat quay.io/sjfke/rhel8-ubi-soma:8.6
 ```
 
+* [OpenShift CLI developer command reference](https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/developer-cli-commands.html)
+* [oc run](https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/developer-cli-commands.html#oc-run)
+
+```bash
+developer$ podman login docker.io -u sjfke
+developer$ oc run cat-dog --rm -i --tty --image docker.io/sjfke/sjfke/rhel8-ubi-soma:latest
+```
 
 ## SCC Constraints
 
 The OpenShift Container Platform, has an additional set of *Security Context Constraints* (**SCC**), which control the actions a **pod** can perform and what it has the ability to access
 as shown below, with **restricted** being the default. 
+
+To ensure the application will deploy and run, it is necessary to ensure the `serviceaccount` of the application is assigned to the correct `SCC policy`.
 
 All containers are governed [SELINUX](https://www.redhat.com/en/topics/linux/what-is-selinux) and have restrictions on **RUNASUSER**,
 the **_MustRunAsRange_** for example enforces the range `1000660000 -to- 1000669999` for the UNIX `UID` value.
