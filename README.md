@@ -150,8 +150,13 @@ developer$ oc set serviceaccount deployment/<app-name> sa-anyuid
 While documented for `OpenShift 3.11`, another simpler approach is to assigning all authenticated users to `anyuid`, as described in [`USER` in the `Dockerfile`](https://docs.openshift.com/container-platform/3.11/admin_guide/manage_scc.html).
 
 ```bash
+# Cluster-wide
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated      # add all authenticated users
 kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated # remove all authenticated users
+
+# Project-scoped
+kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
+kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
 ```
 
 The following BLOG post [A Guide to OpenShift and UIDs](https://cloud.redhat.com/blog/a-guide-to-openshift-and-uids) provides a more detailed explanation.
