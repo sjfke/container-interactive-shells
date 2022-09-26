@@ -128,6 +128,16 @@ PS1> docker commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
 PS1> docker push quay.io/sjfke/rhel8-ubi-soma:8.6
 ```
 
+## Random build commands to incorporate
+
+```bash
+$ podman build --no-cache --tag docker.io/sjfke/rhel8-ubi-soma -f ./Dockerfile $PWD
+$ podman rm crazy-frog 
+$ podman run -it --name crazy-frog docker.io/sjfke/rhel8-ubi-soma:latest 
+$ podman push docker.io/sjfke/rhel8-ubi-soma:latest
+$ oc run cat-dog --rm -i --tty --image docker.io/sjfke/rhel8-ubi-soma:latest
+```
+
 ## Configuring Git to handle line endings
 
 To avoid Windows/MacOS Unix line ending madness when using GIT, needs configuring.

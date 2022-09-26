@@ -40,6 +40,7 @@ USER ${UID}
 # DO NOT SET a default port for applications built using this image
 # EXPOSE ${PORT}
 
-ENTRYPOINT /bin/bash -li
+ENTRYPOINT exec /bin/bash -li
 # CMD ["/bin/bash","-c","while true ; do date; sleep 1; done;"]
 CMD ["/bin/bash","-c","while true ; do sleep 1; done;"]
+# CMD ["-li"]

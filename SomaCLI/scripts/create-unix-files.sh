@@ -31,6 +31,9 @@ chmod 444 /etc/motd
 # Copy /etc/motd /etc/issue.net file
 cp -p /etc/motd /etc/issue.net
 
+# Copy /etc/motd /etc/profile.d/welcome.sh
+cp -p /etc/motd /etc/profile.d/welcome.sh
+
 # Create bash_profile
 cat > /home/soma/.bash_profile <<EOT
 # .bash_profile
@@ -65,6 +68,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific aliases and functions
+cat /etc/motd
 
 EOT
 chmod 744 /home/soma/.bashrc
