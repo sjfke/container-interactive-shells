@@ -153,7 +153,6 @@ If you don't see a command prompt, try pressing enter.
 ##############################################################################
 
 [soma@soma-pod ~]$ sudo -l
-
 [soma@soma-pod ~]$ exit
 logout
 Session ended, resume using 'oc attach soma-pod -c soma-pod -i -t' command when the pod is running

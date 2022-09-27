@@ -97,11 +97,39 @@ $ docker pull quay.io/sjfke/rhel8-ubi-soma:8.6
 $ docker run -it --name lazy-cat quay.io/sjfke/rhel8-ubi-soma:8.6
 ```
 
-To run the container in a Kubernetes cluster.
+To run the container in a Kubernetes cluster, use ``oc run`` but for Openshift Container Platform there are [SCC Constraints](#scc-constraints).
  
 ```bash
+# Openshift Container Platform - add all authenticated users to SCC group policy 'anyuid' 
+kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
+
 developer$ podman login docker.io -u sjfke
-developer$ oc run cat-dog --rm -i --tty --image docker.io/sjfke/sjfke/rhel8-ubi-soma:latest
+developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+If you don't see a command prompt, try pressing enter.
+[soma@soma-pod ~]$ cat /etc/motd
+##############################################################################
+#         WARNING: Unauthorized access to this system is forbidden!          #
+#                All connections are monitored and recorded.                 #
+#         Disconnect IMMEDIATELY if you are not an authorized user!          #
+#                                                                            #
+# -------------------------------------------------------------------------- #
+# Idea stolen from: Brave New World by Aldous Huxley                         #
+# SOMA: numbs any sort of discomfort, anxiety, stress and general uneasiness #
+# -------------------------------------------------------------------------- #
+# sudoers: soma ALL=(ALL) NOPASSWD:ALL                                       #
+# nmap-ncat: nc, ncat                                                        #
+# bind-utils: nslookup, dig, host, nsupdate, arpaname                        #
+# iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]        #
+##############################################################################
+
+[soma@soma-pod ~]$ sudo -l
+[soma@soma-pod ~]$ exit
+logout
+Session ended, resume using 'oc attach soma-pod -c soma-pod -i -t' command when the pod is running
+pod "soma-pod" deleted
+
+# Openshift Container Platform - remove all authenticated users from SCC group policy 'anyuid'
+kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
 ```
 
 ## SCC Constraints
@@ -147,7 +175,7 @@ kubeadmin$ oc adm policy add-scc-to-user anyuid -z sa-anyuid
 developer$ oc set serviceaccount deployment/<app-name> sa-anyuid
 ```
 
-While documented for `OpenShift 3.11`, another simpler approach is to assigning all authenticated users to `anyuid`, as described in [`USER` in the `Dockerfile`](https://docs.openshift.com/container-platform/3.11/admin_guide/manage_scc.html).
+While documented for `OpenShift 3.11`, another simpler approach is assigning all authenticated users to `anyuid`, as described in [`USER` in the `Dockerfile`](https://docs.openshift.com/container-platform/3.11/admin_guide/manage_scc.html).
 
 ```bash
 # Cluster-wide
