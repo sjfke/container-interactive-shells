@@ -31,8 +31,8 @@ chmod 444 /etc/motd
 # Copy /etc/motd /etc/issue.net file
 cp -p /etc/motd /etc/issue.net
 
-# Create bash_profile
-cat > /home/soma/.bash_profile <<EOT
+# Create bash_profile and prevent $TERM expansion
+cat > /home/soma/.bash_profile << "EOT"
 # .bash_profile
 
 # Get the aliases and functions

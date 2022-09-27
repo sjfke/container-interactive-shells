@@ -97,9 +97,8 @@ $ docker pull quay.io/sjfke/rhel8-ubi-soma:8.6
 $ docker run -it --name lazy-cat quay.io/sjfke/rhel8-ubi-soma:8.6
 ```
 
-* [OpenShift CLI developer command reference](https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/developer-cli-commands.html)
-* [oc run](https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/developer-cli-commands.html#oc-run)
-
+To run the container in a Kubernetes cluster.
+ 
 ```bash
 developer$ podman login docker.io -u sjfke
 developer$ oc run cat-dog --rm -i --tty --image docker.io/sjfke/sjfke/rhel8-ubi-soma:latest
@@ -151,8 +150,13 @@ developer$ oc set serviceaccount deployment/<app-name> sa-anyuid
 While documented for `OpenShift 3.11`, another simpler approach is to assigning all authenticated users to `anyuid`, as described in [`USER` in the `Dockerfile`](https://docs.openshift.com/container-platform/3.11/admin_guide/manage_scc.html).
 
 ```bash
+# Cluster-wide
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated      # add all authenticated users
 kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated # remove all authenticated users
+
+# Project-scoped
+kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
+kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
 ```
 
 The following BLOG post [A Guide to OpenShift and UIDs](https://cloud.redhat.com/blog/a-guide-to-openshift-and-uids) provides a more detailed explanation.
