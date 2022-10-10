@@ -9,7 +9,7 @@ ENV WHEEL=10
 
 # TODO: Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.name="rhel8-ubi:8.6" \
-      io.k8s.description="RHEL8 UBI with netcat, bind, iputils" \
+      io.k8s.description="RHEL8 UBI with netcat, bind, iputils, iproute.x86_64" \
       io.k8s.display-name="rhel8-ubi" \
       io.k8s.version="8.6" \
       io.openshift.tags="rhel8-ubi,8.6"
@@ -17,7 +17,7 @@ LABEL io.k8s.name="rhel8-ubi:8.6" \
 WORKDIR /home/soma
 
 RUN yum --disableplugin=subscription-manager -y install sudo.x86_64 nmap-ncat.x86_64 bind-utils.x86_64 iputils.x86_64 \
-  && yum --disableplugin=subscription-manager clean all
+ iproute.x86_64 && yum --disableplugin=subscription-manager clean all
   
 # Drop the root user and make this an interactive Bash Shell for user 1001 (soma)
 RUN groupadd --gid ${UID} soma \

@@ -15,6 +15,12 @@
 # in Unix via a file share from Windows, the scripts will work.
 *.sh text eol=lf
 
+# Avoiding GitHub issues with LFS billing
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+*.svg binary
+
 # If Git Large File Support (LFS) is needed uncomment (parts of) this section
 # 2022-09-07: CAUTION: this can cause issues with your external repository provider.
 # 2022-09-07: GitHub currently requires an additional paid-for data plan even for a 6K favicon file flagged as lfs.
