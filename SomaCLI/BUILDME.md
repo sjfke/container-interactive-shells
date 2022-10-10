@@ -123,9 +123,11 @@ PS1> docker push sjfke/rhel8-ubi-soma:8.6
 PS1> docker login -u=<robot-account> -p=<password-hash> quay.io
 PS1> docker build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd # NB quay.io prefix
 PS1> docker run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.6
+PS1> docker stop crazy-toad # do not 'docker rm' because need CONTAINER ID for commit
 PS1> docker ps -l # need CONTAINER ID for commit
 PS1> docker commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
 PS1> docker push quay.io/sjfke/rhel8-ubi-soma:8.6
+PS1> docker rm crazy-toad # now clean-up
 ```
 
 ## Run Soma in Kubernetes Container Platform
@@ -168,7 +170,12 @@ To avoid Windows/MacOS Unix line ending madness when using GIT, needs configurin
 Files are best generated during the Docker installation using a script (create-unix-files.sh)
 
 * [docs.github.com: Handling line endings](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)
+
+If Git Large File Support (LFS) as suggested in:
 * [rehansaeed.com: gitattributes Best Practices](https://rehansaeed.com/gitattributes-best-practices/)
+* 2022-09-07: CAUTION: this can cause issues with your external repository provider.
+* 2022-09-07: GitHub currently requires an additional paid-for data plan even for a 6K favicon file flagged as lfs.
+* 2022-09-07: For binary files flag as 'binary' as shown in the '.gitattributes' file.
 
 ```powershell
 PS1> git config --global core.autocrlf true # Global settings for line endings
