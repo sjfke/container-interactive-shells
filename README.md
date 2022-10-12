@@ -103,7 +103,8 @@ To run the container in a Kubernetes cluster, use ``oc run`` but for Openshift C
 # Openshift Container Platform - add all authenticated users to SCC group policy 'anyuid' 
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
 
-developer$ podman login docker.io -u sjfke
+developer$ oc debug --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+# -or- 
 developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
 If you don't see a command prompt, try pressing enter.
 [soma@soma-pod ~]$ cat /etc/motd
@@ -120,6 +121,7 @@ If you don't see a command prompt, try pressing enter.
 # nmap-ncat: nc, ncat                                                        #
 # bind-utils: nslookup, dig, host, nsupdate, arpaname                        #
 # iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]        #
+# ip: link, address, route, rule, neigh, maddress, monitor etc.              #
 ##############################################################################
 
 [soma@soma-pod ~]$ sudo -l
