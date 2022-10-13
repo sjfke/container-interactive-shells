@@ -111,7 +111,7 @@ Storing signatures
 After updating the Docker file, to rebuild and push, this is for 8.5 to 8.6.
 
 ```powershell
-# Docker
+# Docker.IO (DockerHub)
 PS1> cat <dockerhub-win10-access-token.txt> | docker login -u sjfke --password-stdin
 PS1> docker build --no-cache --tag sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd
 PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-soma:8.6
@@ -130,12 +130,37 @@ PS1> docker push quay.io/sjfke/rhel8-ubi-soma:8.6
 PS1> docker rm crazy-toad # now clean-up
 ```
 
+```bash
+# Docker.IO (DockerHub)
+$ cat <dockerhub-fedora-access-token.txt> | podman login --username sjfke --password-stdin docker.io
+$ podman login --get-login docker.io # confirm user login
+
+$ podman build --no-cache --tag sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd
+$ podman run -it --name crazy-frog sjfke/rhel8-ubi-soma:8.6
+$ podman images # need IMAGE ID for tag
+$ podman tag b5244edad760 sjfke/rhel8-ubi-soma:8.6
+$ podman push sjfke/rhel8-ubi-soma:8.6
+
+# Quay.IO
+$ cat <sjfke+quay_io_robot.txt> | podman login --username <sjfke+quay_io> --password-stdin quay.io
+$ podman login --get-login quay.io # confirm user login
+$ podman build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $PWD
+$ podman run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.6
+$ podman stop crazy-toad # do not 'podman rm' because need CONTAINER ID for commit
+$ podman ps -l # need CONTAINER ID for commit
+$ podman commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
+$ podman push quay.io/sjfke/rhel8-ubi-soma:8.6
+$ podman rm crazy-toad # now clean-up
+```
+
 ## Run Soma in Kubernetes Container Platform
 
 ```bash
 # Openshift Container Platform - add all authenticated users to SCC group policy 'anyuid' 
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
 
+developer$ oc debug --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+# or
 developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
 If you don't see a command prompt, try pressing enter.
 [soma@soma-pod ~]$ cat /etc/motd
@@ -152,6 +177,7 @@ If you don't see a command prompt, try pressing enter.
 # nmap-ncat: nc, ncat                                                        #
 # bind-utils: nslookup, dig, host, nsupdate, arpaname                        #
 # iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]        #
+# ip: link, address, route, rule, neigh, maddress, monitor etc.              #
 ##############################################################################
 
 [soma@soma-pod ~]$ sudo -l

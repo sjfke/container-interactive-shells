@@ -23,6 +23,7 @@ cat > /etc/motd <<EOT
 # nmap-ncat: nc, ncat                                                        #
 # bind-utils: nslookup, dig, host, nsupdate, arpaname                        #
 # iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]        #
+# ip: link, address, route, rule, neigh, maddress, monitor etc.              #
 ##############################################################################
 
 EOT
