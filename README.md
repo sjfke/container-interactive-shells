@@ -15,7 +15,7 @@ have are an extra level security constraints to be taken into account, [SCC Cons
 * [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56)
 * [DockerHub: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8)
 * [README](./RHEL-UBI8/README.md)
-* [busybox-deployment.yaml](./RHEL-UBI8/rhel-ubi8-deployment.yaml)
+* [rhel-ubi8-deployment.yaml](./RHEL-UBI8/rhel-ubi8-deployment.yaml)
 
 
 ## BusyBox deployment
