@@ -14,12 +14,18 @@ have are an extra level security constraints to be taken into account, [SCC Cons
 * [Introducing the Red Hat Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image)
 * [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56)
 * [DockerHub: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8)
+* [README](./RHEL-UBI8/README.md)
+* [busybox-deployment.yaml](./RHEL-UBI8/rhel-ubi8-deployment.yaml)
+
 
 ## BusyBox deployment
 
 * [Wikipedia Busybox](https://en.wikipedia.org/wiki/BusyBox)
 * [BusyBox - The Swiss Army Knife of Embedded Linux](https://busybox.net/downloads/BusyBox.html)
 * [BusyBox-Commands](https://boxmatrix.info/wiki/BusyBox-Commands)
+* [README](./BusyBox/README.md)
+* [busybox-deployment.yaml](./BusyBox/busybox-deployment.yaml)
+
 
 ## SomaCLI
 
@@ -30,10 +36,11 @@ RHEL-8 UBI  Interactive with Non-Root Bash Shell with login that provides:
 ### Interactive Bash Shell
 
 The RHEL UBI 8 image includes:
-* sudoers: with: 'soma ALL=(ALL) NOPASSWD:ALL'
-* nmap-ncat: nc, ncat
-* bind-utils: nslookup, dig, host, nsupdate, arpaname
-* iputils: ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]
+* [sudoers](https://en.wikipedia.org/wiki/Sudo): with: 'soma ALL=(ALL) NOPASSWD:ALL'
+* [nmap-ncat](https://nmap.org/ncat/guide/index.html): nc, ncat
+* [bind-utils](https://www.mankier.com/package/bind-utils): nslookup, dig, host, nsupdate, arpaname
+* [iputils](https://www.mankier.com/package/iputils): ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]
+* [ip](https://www.mankier.com/package/ip): link, address, route, rule, neigh, maddress, monitor etc.              #
 
 The original version was based on rhel8-ubi:8.5 but:
 
@@ -52,8 +59,8 @@ The original version was based on rhel8-ubi:8.5 but:
 
 ### Files
 
-* Dockerfile: Docker configuration file.
-* BUILDME: Image build, deployment and test.
+* [Dockerfile](./SomaCLI/Dockerfile): Docker configuration file.
+* [BUILDME](./SomaCLI/BUILDME.md): Image build, deployment and test.
 
 Generated using: `create-unix-files.sh`
 

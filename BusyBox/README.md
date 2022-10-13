@@ -8,6 +8,7 @@ The approach is based on [OpenShift Examples: Deployments])(https://examples.ope
 * [BusyBox - The Swiss Army Knife of Embedded Linux](https://busybox.net/downloads/BusyBox.html)
 * [BusyBox-Commands](https://boxmatrix.info/wiki/BusyBox-Commands)
 
+
 ## Typical Usage
 
 The `oc adm policy` commands are need on `OpenShift Kubernetes Environment`` such as [Red Hat OpenShift Local (formerly Red Hat CodeReady Containers)](https://developers.redhat.com/products/openshift-local/overview)
