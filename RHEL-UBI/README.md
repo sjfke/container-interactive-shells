@@ -7,13 +7,15 @@ The approach is based on [OpenShift Examples: Deployments])(https://examples.ope
 * [Introducing the Red Hat Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image)
 * [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56)
 * [DockerHub: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8)
+* [Dockerhub: redhat/ubi9](https://hub.docker.com/r/redhat/ubi9)
+
 
 ## Typical Usage
 
 ### OpenShift Local
 
 > [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) has an extra 
-> level security [SCC Constraints](#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
+> level security [SCC Constraints](../README.md#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
 
 ```bash
 #

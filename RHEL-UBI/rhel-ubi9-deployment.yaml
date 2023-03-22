@@ -1,0 +1,35 @@
+# https://examples.openshift.pub/deploy/#simple-deployment
+#
+# kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
+# developer$ oc apply -f rhel-ubi9-deployment.yaml
+# developer$ oc exec --stdin --tty pod/<pod-name> -- bash
+# developer$ oc delete deployment.apps/rhel-ubi9-deployment
+# kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rhel-ubi9-deployment
+    app.kubernetes.io/component: rhel-ubi9-deployment
+    app.kubernetes.io/instance: rhel-ubi9-deployment
+    app.kubernetes.io/part-of: rhel-ubi9-deployment
+    app.openshift.io/runtime: redhat
+  name: rhel-ubi9-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rhel-ubi9-deployment
+  template:
+    metadata:
+      labels:
+        app: rhel-ubi9-deployment
+        deploymentconfig: rhel-ubi9-deployment
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi9/ubi:latest
+        imagePullPolicy: Always
+        name: rhel-ubi9-deployment
+        command: [ "/bin/sh", "-c", "tail -f /dev/null" ]
+        resources: {}

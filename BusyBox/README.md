@@ -14,7 +14,7 @@ The approach is based on [OpenShift Examples: Deployments])(https://examples.ope
 ### OpenShift Local
 
 > [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) has an extra 
-> level security [SCC Constraints](#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
+> level security [SCC Constraints](../README.md#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
 
 ```bash
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"

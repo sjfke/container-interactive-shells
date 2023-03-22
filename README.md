@@ -23,8 +23,8 @@ In each case a `deployment.yaml` file is provided which can be applied using:
 * [Introducing the Red Hat Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image)
 * [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56)
 * [DockerHub: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8)
-* [README](./RHEL-UBI8/README.md)
-* [rhel-ubi8-deployment.yaml](./RHEL-UBI8/rhel-ubi8-deployment.yaml)
+* [README](RHEL-UBI/README.md)
+* [rhel-ubi8-deployment.yaml](RHEL-UBI/rhel-ubi8-deployment.yaml)
 
 
 ## BusyBox deployment
