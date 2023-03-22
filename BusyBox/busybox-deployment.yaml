@@ -21,7 +21,6 @@ spec:
   selector:
     matchLabels:
       app: busybox-deployment
-    type: Recreate  
   template:
     metadata:
       labels:

@@ -21,7 +21,6 @@ spec:
   selector:
     matchLabels:
       app: rhel-ubi8-deployment
-    type: Recreate
   template:
     metadata:
       labels:

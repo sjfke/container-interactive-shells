@@ -21,11 +21,11 @@ kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespac
 developer$ oc apply -f rhel-ubi8-deployment.yaml
 developer$ oc exec --stdin --tty pod/<pod-name> -- bash
 
-bash-4.4$ ls
+[root@<pod-name> /]# ls
 bin  boot  dev	etc  home  lib	lib64  lost+found  media  mnt  opt  proc  root	run  sbin  srv	sys  tmp  usr  var
-bash-4.4$ echo "hello world"
+[root@<pod-name> /]# echo "hello world"
 hello world
-bash-4.4$ exit
+[root@<pod-name> /]# exit
 developer$
 
 developer$ oc delete deployment.apps/rhel-ubi8-deployment
