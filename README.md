@@ -1,4 +1,4 @@
-# RHEL-8 Universal Base Image Deployments and Containers
+# Containers Which Provide An Interactive Shell
 
 Containers for deploying inside the cluster for troubleshooting and debugging.
 
@@ -6,8 +6,16 @@ Containers for deploying inside the cluster for troubleshooting and debugging.
 * [Simple BusyBox deployment](#busybox-deployment)
 * [SomaCLI container with Non-Root Bash Shell, plus `sudo`](#somacli)
 
-``OpenShift Kubernetes Environment`` such as [Red Hat OpenShift Local (formerly Red Hat CodeReady Containers)](https://developers.redhat.com/products/openshift-local/overview)
-have are an extra level security constraints to be taken into account, [SCC Constraints](#scc-constraints).
+These containers are tested on:
+
+* Fedora Linux 37 using [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview)
+* MacOS using [minikube](https://minikube.sigs.k8s.io/docs/) (brew install) which requires [Docker Desktop](https://docs.docker.com/desktop/)
+
+In each case a `deployment.yaml` file is provided which can be applied using `kubectl apply -f deployment.yaml` or 
+`oc apply -f deployment.yaml`.
+
+> Note [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) has an extra 
+> level security [SCC Constraints](#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
 
 ## RHEL UBI-8 deployment
 
@@ -62,7 +70,7 @@ The original version was based on rhel8-ubi:8.5 but:
 * [Dockerfile](./SomaCLI/Dockerfile): Docker configuration file.
 * [BUILDME](./SomaCLI/BUILDME.md): Image build, deployment and test.
 
-Generated using: `create-unix-files.sh`
+The following are generated using: `create-unix-files.sh` to avoid `CR/LF` issues when building on non-Linux systems.
 
 * bashrc: /home/soma/.bashrc
 * bash_profile: /home/soma/.bash_profile
