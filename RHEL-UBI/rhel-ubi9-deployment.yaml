@@ -1,35 +1,35 @@
 # https://examples.openshift.pub/deploy/#simple-deployment
 #
 # kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
-# developer$ oc apply -f busybox-deployment.yaml
+# developer$ oc apply -f rhel-ubi9-deployment.yaml
 # developer$ oc exec --stdin --tty pod/<pod-name> -- bash
-# developer$ oc delete deployment.apps/busybox-deployment
+# developer$ oc delete deployment.apps/rhel-ubi9-deployment
 # kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: busybox-deployment
-    app.kubernetes.io/component: busybox-deployment
-    app.kubernetes.io/instance: busybox-deployment
-    app.kubernetes.io/part-of: busybox-deployment
+    app: rhel-ubi9-deployment
+    app.kubernetes.io/component: rhel-ubi9-deployment
+    app.kubernetes.io/instance: rhel-ubi9-deployment
+    app.kubernetes.io/part-of: rhel-ubi9-deployment
     app.openshift.io/runtime: redhat
-  name: busybox-deployment
+  name: rhel-ubi9-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: busybox-deployment
+      app: rhel-ubi9-deployment
   template:
     metadata:
       labels:
-        app: busybox-deployment
-        deploymentconfig: busybox
+        app: rhel-ubi9-deployment
+        deploymentconfig: rhel-ubi9-deployment
     spec:
       containers:
-      - image: busybox
+      - image: registry.access.redhat.com/ubi9/ubi:latest
         imagePullPolicy: Always
-        name: busybox-deployment
+        name: rhel-ubi9-deployment
         command: [ "/bin/sh", "-c", "tail -f /dev/null" ]
         resources: {}
