@@ -18,13 +18,15 @@ In each case a `deployment.yaml` file is provided which can be applied using:
 > [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) has an extra 
 > level security [SCC Constraints](#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
 
-## RHEL UBI-8 deployment
+## RHEL UBI deployments
 
 * [Introducing the Red Hat Universal Base Image](https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image)
 * [Red Hat Universal Base Image 8](https://catalog.redhat.com/software/container-stacks/detail/5ec53f50ef29fd35586d9a56)
 * [DockerHub: redhat/ubi8](https://hub.docker.com/r/redhat/ubi8)
+* [DockerHub: redhat/ubi9](https://hub.docker.com/r/redhat/ubi9)
 * [README](RHEL-UBI/README.md)
 * [rhel-ubi8-deployment.yaml](RHEL-UBI/rhel-ubi8-deployment.yaml)
+* [rhel-ubi9-deployment.yaml](RHEL-UBI/rhel-ubi9-deployment.yaml)
 
 
 ## BusyBox deployment
