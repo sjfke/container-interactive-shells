@@ -32,5 +32,5 @@ spec:
       - image: registry.access.redhat.com/ubi8/ubi:latest
         imagePullPolicy: Always
         name: rhel-ubi8-deployment
-        command: [ "/bin/sh", "-c", "while true ; do sleep 1; done;" ]
+        command: [ "/bin/sh", "-c", "tail -f /dev/null" ]
         resources: {}
