@@ -32,5 +32,5 @@ spec:
       - image: busybox
         imagePullPolicy: Always
         name: busybox-deployment
-        command: [ "/bin/sh", "-c", "while true ; do date; sleep 1; done;" ]
+        command: [ "/bin/sh", "-c", "tail -f /dev/null" ]
         resources: {}
