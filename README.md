@@ -1,6 +1,6 @@
 # Containers Which Provide An Interactive Shell
 
-Containers for deploying inside the cluster for troubleshooting and debugging.
+Containers for deploying inside a `kubernetes` cluster for troubleshooting and debugging.
 
 * [Simple RHEL UBI-8 deployment](#rhel-ubi-8-deployment)
 * [Simple BusyBox deployment](#busybox-deployment)
@@ -11,10 +11,11 @@ These containers are tested on:
 * Fedora Linux 37 using [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview)
 * MacOS using [minikube](https://minikube.sigs.k8s.io/docs/) (brew install) which requires [Docker Desktop](https://docs.docker.com/desktop/)
 
-In each case a `deployment.yaml` file is provided which can be applied using `kubectl apply -f deployment.yaml` or 
-`oc apply -f deployment.yaml`.
+In each case a `deployment.yaml` file is provided which can be applied using:
+* OpenShift `oc apply -f deployment.yaml`
+* Minikube/Kubernetes `kubectl apply -f deployment.yaml`
 
-> Note [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) has an extra 
+> [Red Hat OpenShift Local](https://developers.redhat.com/products/openshift-local/overview) has an extra 
 > level security [SCC Constraints](#scc-constraints) compared to [minikube](https://minikube.sigs.k8s.io/docs/).
 
 ## RHEL UBI-8 deployment
