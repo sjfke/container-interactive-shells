@@ -115,7 +115,7 @@ After updating the Docker file, to rebuild and push, this is for 8.5 to 8.6.
 ```powershell
 # Docker.IO (DockerHub)
 PS1> cat <dockerhub-win10-access-token.txt> | docker login -u sjfke --password-stdin
-PS1> docker build --no-cache --tag sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $pwd
+PS1> docker build --no-cache --tag sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile-8.6 $pwd
 PS1> docker run -it --name crazy-frog sjfke/rhel-ubi8-soma:8.6
 PS1> docker images | select -first 5 # need IMAGE ID for tag
 PS1> docker tag b5244edad760 sjfke/rhel-ubi8-soma:8.6
@@ -123,7 +123,7 @@ PS1> docker push sjfke/rhel-ubi8-soma:8.6
 
 # Quay.IO
 PS1> cat <sjfke+quay_io_robot.txt> | docker login -u <sjfke+quay_io> --password-stdin quay.io
-PS1> docker build --no-cache --tag quay.io/sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $pwd # NB quay.io prefix
+PS1> docker build --no-cache --tag quay.io/sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile-8.6 $pwd # NB quay.io prefix
 PS1> docker run -it --name crazy-toad quay.io/sjfke/rhel-ubi8-soma:8.6
 PS1> docker stop crazy-toad # do not 'docker rm' because need CONTAINER ID for commit
 PS1> docker ps -l # need CONTAINER ID for commit
