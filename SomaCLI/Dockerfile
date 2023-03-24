@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM registry.access.redhat.com/ubi8/ubi:8.5
+FROM registry.access.redhat.com/ubi8/ubi:8.6
 # Change User to perform privileged actions
 USER 0
 # TODO: Rename the builder environment variable to inform users about application you provide them
@@ -8,11 +8,11 @@ ENV UID=1001
 ENV WHEEL=10
 
 # TODO: Set labels used in OpenShift to describe the builder image
-LABEL io.k8s.name="rhel8-ubi:8.5" \
+LABEL io.k8s.name="rhel8-ubi:8.6" \
       io.k8s.description="RHEL UBI8 with netcat, bind, iputils, iproute.x86_64" \
       io.k8s.display-name="rhel-ubi8" \
-      io.k8s.version="8.5" \
-      io.openshift.tags="rhel-ubi8,8.5"
+      io.k8s.version="8.6" \
+      io.openshift.tags="rhel-ubi8,8.6"
 
 WORKDIR /home/soma
 
