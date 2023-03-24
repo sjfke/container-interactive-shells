@@ -1,8 +1,10 @@
 # Soma CLI Building
 
-RHEL-8 UBI Interactive Non-Root Bash Shell with nmap-ncat, bind-utils, iputils
+RHEL UBI-8 Interactive non-root Bash Shell with nmap-ncat, bind-utils, iputils
 
-**NOTE:** To avoid Windows/MacOS Unix line ending madness when using GIT, see [Configuring Git to handle line endings](#configuring-git-to-handle-line-endings)
+The build instructions reflect the initial build using UBI-8.5, for rebuilding see [Updating quay.io and dockerhub images](#updating-quay.io-and-dockerhub-images) 
+
+> A UNIX script is used to create the configuration files in the container to ensure correct line-endings, see also [Configuring Git to handle line endings](#configuring-git-to-handle-line-endings)
 
 ## DockerHub using Windows Docker Desktop
 
@@ -21,8 +23,8 @@ PS1> docker images
 REPOSITORY                            TAG       IMAGE ID       CREATED        SIZE
 registry.access.redhat.com/ubi8/ubi   8.5       202c1768b1f7   3 months ago   216MB
 
-PS1> docker build --no-cache --tag sjfke/rhel8-ubi-containers/rhel8-ubi-soma:8.5 -f ./Dockerfile $pwd
-PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel8-ubi-soma:8.5
+PS1> docker build --no-cache --tag sjfke/rhel-ubi8-containers/rhel-ubi8-soma:8.5 -f ./Dockerfile $pwd
+PS1> docker run -it --name crazy-frog sjfke/rhel-ubi8-containers/rhel-ubi8-soma:8.5
 ```
 ### Tag and Push to DockerHub
 
@@ -31,18 +33,18 @@ PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-containers/rhel8-ubi-soma:
 ```powershell
 PS1> docker images
 REPOSITORY                                  TAG       IMAGE ID       CREATED         SIZE
-sjfke/rhel8-ubi-containers/rhel8-ubi-soma   8.5       45766b337ea4   4 minutes ago   302MB
+sjfke/rhel-ubi8-containers/rhel-ubi8-soma   8.5       45766b337ea4   4 minutes ago   302MB
 registry.access.redhat.com/ubi8/ubi         8.5       202c1768b1f7   3 months ago    216MB
 
-PS1> docker tag 45766b337ea4 sjfke/rhel8-ubi-soma:8.5 # tag with <repo>:<image-version>
+PS1> docker tag 45766b337ea4 sjfke/rhel-ubi8-soma:8.5 # tag with <repo>:<image-version>
 PS1> docker images
 REPOSITORY                                  TAG       IMAGE ID       CREATED          SIZE
-sjfke/rhel8-ubi-containers/rhel8-ubi-soma   8.5       45766b337ea4   10 minutes ago   302MB
-sjfke/rhel8-ubi-soma                        8.5       45766b337ea4   10 minutes ago   302MB
+sjfke/rhel-ubi8-containers/rhel-ubi8-soma   8.5       45766b337ea4   10 minutes ago   302MB
+sjfke/rhel-ubi8-soma                        8.5       45766b337ea4   10 minutes ago   302MB
 registry.access.redhat.com/ubi8/ubi         8.5       202c1768b1f7   3 months ago     216MB
 
-PS1> docker push sjfke/rhel8-ubi-soma:8.5 # push tag with <repo>:<image-version>
-The push refers to repository [docker.io/sjfke/rhel8-ubi-soma]
+PS1> docker push sjfke/rhel-ubi8-soma:8.5 # push tag with <repo>:<image-version>
+The push refers to repository [docker.io/sjfke/rhel-ubi8-soma]
 ad2f2a87562f: Pushed
 97af94709826: Pushed
 0fbfed2f82f5: Pushed
@@ -64,8 +66,8 @@ $ podman login quay.io -u sjfke
 $ podman login -u=<robot-account> -p=<robot-account-password> quay.io
 
 # Build, deploy and test
-$ podman build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.5 -f ./Dockerfile $PWD
-$ podman run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.5
+$ podman build --no-cache --tag quay.io/sjfke/rhel-ubi8-soma:8.5 -f ./Dockerfile $PWD
+$ podman run -it --name crazy-toad quay.io/sjfke/rhel-ubi8-soma:8.5
 ```
 
 ### Commit container and Push to Quay.IO
@@ -75,25 +77,25 @@ $ podman run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.5
 ```bash
 $ podman images
 REPOSITORY                               TAG         IMAGE ID      CREATED             SIZE
-quay.io/sjfke/rhel8-ubi-soma             8.5         2cf12092c3ef  About a minute ago  321 MB
+quay.io/sjfke/rhel-ubi8-soma             8.5         2cf12092c3ef  About a minute ago  321 MB
 registry.access.redhat.com/ubi8/ubi      8.5         202c1768b1f7  3 months ago        235 MB
 
 $ podman ps -l
 CONTAINER ID  IMAGE                             COMMAND               CREATED        STATUS                    PORTS       NAMES
-b4826e4acf63  quay.io/sjfke/rhel8-ubi-soma:8.5  /bin/sh -c /bin/b...  8 minutes ago  Exited (0) 8 minutes ago              crazy-toad
+b4826e4acf63  quay.io/sjfke/rhel-ubi8-soma:8.5  /bin/sh -c /bin/b...  8 minutes ago  Exited (0) 8 minutes ago              crazy-toad
 
 
-$ podman commit b4826e4acf63 quay.io/sjfke/rhel8-ubi-soma:8.5 # tag the container with <repo>:<image-version>
+$ podman commit b4826e4acf63 quay.io/sjfke/rhel-ubi8-soma:8.5 # tag the container with <repo>:<image-version>
 $ podman container ls -a
 CONTAINER ID  IMAGE                             COMMAND               CREATED         STATUS                     PORTS       NAMES
-b4826e4acf63  quay.io/sjfke/rhel8-ubi-soma:8.5  /bin/sh -c /bin/b...  14 minutes ago  Exited (0) 14 minutes ago              crazy-toad
+b4826e4acf63  quay.io/sjfke/rhel-ubi8-soma:8.5  /bin/sh -c /bin/b...  14 minutes ago  Exited (0) 14 minutes ago              crazy-toad
 
 $ podman images
 REPOSITORY                               TAG         IMAGE ID      CREATED        SIZE
-quay.io/sjfke/rhel8-ubi-soma             8.5         2cf12092c3ef  2 minutes ago  321 MB
+quay.io/sjfke/rhel-ubi8-soma             8.5         2cf12092c3ef  2 minutes ago  321 MB
 registry.access.redhat.com/ubi8/ubi      8.5         202c1768b1f7  3 months ago   235 MB
 
-$ podman push quay.io/sjfke/rhel8-ubi-soma:8.5 # push tag with <repo>:<image-version>
+$ podman push quay.io/sjfke/rhel-ubi8-soma:8.5 # push tag with <repo>:<image-version>
 Getting image source signatures
 Copying blob 1b7b9bd03f60 done  
 Copying blob f9535e3067b1 done  
@@ -106,27 +108,27 @@ Copying config 93c4de9533 done
 Writing manifest to image destination
 Storing signatures
 ```
-## Updating quay.io and dockerhub using docker
+## Updating quay.io and dockerhub images
 
 After updating the Docker file, to rebuild and push, this is for 8.5 to 8.6.
 
 ```powershell
 # Docker.IO (DockerHub)
 PS1> cat <dockerhub-win10-access-token.txt> | docker login -u sjfke --password-stdin
-PS1> docker build --no-cache --tag sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd
-PS1> docker run -it --name crazy-frog sjfke/rhel8-ubi-soma:8.6
+PS1> docker build --no-cache --tag sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $pwd
+PS1> docker run -it --name crazy-frog sjfke/rhel-ubi8-soma:8.6
 PS1> docker images # need IMAGE ID for tag
-PS1> docker tag b5244edad760 sjfke/rhel8-ubi-soma:8.6
-PS1> docker push sjfke/rhel8-ubi-soma:8.6
+PS1> docker tag b5244edad760 sjfke/rhel-ubi8-soma:8.6
+PS1> docker push sjfke/rhel-ubi8-soma:8.6
 
 # Quay.IO
-PS1> docker login -u=<robot-account> -p=<password-hash> quay.io
-PS1> docker build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd # NB quay.io prefix
-PS1> docker run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.6
+PS1> cat <sjfke+quay_io_robot.txt> | docker login -u <sjfke+quay_io> --password-stdin quay.io
+PS1> docker build --no-cache --tag quay.io/sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $pwd # NB quay.io prefix
+PS1> docker run -it --name crazy-toad quay.io/sjfke/rhel-ubi8-soma:8.6
 PS1> docker stop crazy-toad # do not 'docker rm' because need CONTAINER ID for commit
 PS1> docker ps -l # need CONTAINER ID for commit
-PS1> docker commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
-PS1> docker push quay.io/sjfke/rhel8-ubi-soma:8.6
+PS1> docker commit 88e6303c47c2 quay.io/sjfke/rhel-ubi8-soma:8.6
+PS1> docker push quay.io/sjfke/rhel-ubi8-soma:8.6
 PS1> docker rm crazy-toad # now clean-up
 ```
 
@@ -135,21 +137,21 @@ PS1> docker rm crazy-toad # now clean-up
 $ cat <dockerhub-fedora-access-token.txt> | podman login --username sjfke --password-stdin docker.io
 $ podman login --get-login docker.io # confirm user login
 
-$ podman build --no-cache --tag sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $pwd
-$ podman run -it --name crazy-frog sjfke/rhel8-ubi-soma:8.6
+$ podman build --no-cache --tag sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $pwd
+$ podman run -it --name crazy-frog sjfke/rhel-ubi8-soma:8.6
 $ podman images # need IMAGE ID for tag
-$ podman tag b5244edad760 sjfke/rhel8-ubi-soma:8.6
-$ podman push sjfke/rhel8-ubi-soma:8.6
+$ podman tag b5244edad760 sjfke/rhel-ubi8-soma:8.6
+$ podman push sjfke/rhel-ubi8-soma:8.6
 
 # Quay.IO
 $ cat <sjfke+quay_io_robot.txt> | podman login --username <sjfke+quay_io> --password-stdin quay.io
 $ podman login --get-login quay.io # confirm user login
-$ podman build --no-cache --tag quay.io/sjfke/rhel8-ubi-soma:8.6 -f ./Dockerfile $PWD
-$ podman run -it --name crazy-toad quay.io/sjfke/rhel8-ubi-soma:8.6
+$ podman build --no-cache --tag quay.io/sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $PWD
+$ podman run -it --name crazy-toad quay.io/sjfke/rhel-ubi8-soma:8.6
 $ podman stop crazy-toad # do not 'podman rm' because need CONTAINER ID for commit
 $ podman ps -l # need CONTAINER ID for commit
-$ podman commit 88e6303c47c2 quay.io/sjfke/rhel8-ubi-soma:8.6
-$ podman push quay.io/sjfke/rhel8-ubi-soma:8.6
+$ podman commit 88e6303c47c2 quay.io/sjfke/rhel-ubi8-soma:8.6
+$ podman push quay.io/sjfke/rhel-ubi8-soma:8.6
 $ podman rm crazy-toad # now clean-up
 ```
 
@@ -159,9 +161,9 @@ $ podman rm crazy-toad # now clean-up
 # Openshift Container Platform - add all authenticated users to SCC group policy 'anyuid' 
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
 
-developer$ oc debug --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+developer$ oc debug --tty --image docker.io/sjfke/rhel-ubi8-soma:8.6
 # or
-developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel-ubi8-soma:8.6
 If you don't see a command prompt, try pressing enter.
 [soma@soma-pod ~]$ cat /etc/motd
 ##############################################################################
@@ -223,5 +225,4 @@ PS1> cat <repo>\.git\info\gitattributes
 
 # Force Bash Shell scripts to UNIX LF
 *.sh text eol=lf
-
 ```

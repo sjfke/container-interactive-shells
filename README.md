@@ -40,7 +40,7 @@ In each case a `deployment.yaml` file is provided which can be applied using:
 
 ## SomaCLI
 
-RHEL-8 UBI  Interactive with Non-Root Bash Shell with login that provides:
+RHEL UBI8 Interactive with Non-Root Bash Shell with login that provides:
 
 * nmap-ncat, bind-utils, iputils
 
@@ -53,20 +53,12 @@ The RHEL UBI 8 image includes:
 * [iputils](https://www.mankier.com/package/iputils): ping, tracepath; /usr/sbin/: arping, ping[6], tracepath[6]
 * [ip](https://www.mankier.com/package/ip): link, address, route, rule, neigh, maddress, monitor etc.              #
 
-The original version was based on rhel8-ubi:8.5 but:
-
-* These will be periodically updated based on the quay.io security-scan.
-* Issues not yet fixed in the RHEL UBI image are not handled.
-* Older releases are (annotated) tagged and pushed to github.
-* Updated container images are pushed to docker.io and quay.io.
-* Older container images will be periodically removed.
-
 ### Websites
 
-* [GitHub: RHEL-8 Universal Base Image Docker Containers](https://github.com/sjfke/rhel8-ubi-containers)
-* [Docker.io: sjfke/rhel8-ubi-soma](https://hub.docker.com/repository/docker/sjfke/rhel8-ubi-soma)
-* [Quay.io: quay.io/sjfke/rhel8-ubi-soma](https://quay.io/repository/sjfke/rhel8-ubi-soma)
-* [Quay.io: quay.io/sjfke/rhel8-ubi-soma - tag history](https://quay.io/repository/sjfke/rhel8-ubi-soma?tab=history)
+* [GitHub: RHEL-8 Universal Base Image Docker Containers](https://github.com/sjfke/rhel-ubi8-containers)
+* [Docker.io: sjfke/rhel-ubi8-soma](https://hub.docker.com/repository/docker/sjfke/rhel-ubi8-soma)
+* [Quay.io: quay.io/sjfke/rhel-ubi8-soma](https://quay.io/repository/sjfke/rhel-ubi8-soma)
+* [Quay.io: quay.io/sjfke/rhel-ubi8-soma - tag history](https://quay.io/repository/sjfke/rhel-ubi8-soma?tab=history)
 
 ### Files
 
@@ -83,13 +75,13 @@ The following are generated using: `create-unix-files.sh` to avoid `CR/LF` issue
 ### Usage
 
 ```bash
-$ docker pull docker.io/sjfke/rhel8-ubi-soma:8.6
-$ docker run -it --name lazy-dog docker.io/sjfke/rhel8-ubi-soma:8.6
+$ docker pull docker.io/sjfke/rhel-ubi8-soma:8.6
+$ docker run -it --name lazy-dog docker.io/sjfke/rhel-ubi8-soma:8.6
 
 # Docker strips the docker.io prefix, so it is effectively
 
-$ docker pull docker pull sjfke/rhel8-ubi-soma:8.6
-$ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.6
+$ docker pull docker pull sjfke/rhel-ubi8-soma:8.6
+$ docker run -it --name lazy-dog sjfke/rhel-ubi8-soma:8.6
 
 ###############################################################################
 #         WARNING: Unauthorized access to this system is forbidden!          #
@@ -111,8 +103,8 @@ $ docker run -it --name lazy-dog sjfke/rhel8-ubi-soma:8.6
 
 # For Quay.io containers the quay.io prefix *must be* supplied. 
 
-$ docker pull quay.io/sjfke/rhel8-ubi-soma:8.6
-$ docker run -it --name lazy-cat quay.io/sjfke/rhel8-ubi-soma:8.6
+$ docker pull quay.io/sjfke/rhel-ubi8-soma:8.6
+$ docker run -it --name lazy-cat quay.io/sjfke/rhel-ubi8-soma:8.6
 ```
 
 To run the container in a Kubernetes cluster, use ``oc run`` but for Openshift Container Platform there are [SCC Constraints](#scc-constraints).
@@ -121,9 +113,9 @@ To run the container in a Kubernetes cluster, use ``oc run`` but for Openshift C
 # Openshift Container Platform - add all authenticated users to SCC group policy 'anyuid' 
 kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
 
-developer$ oc debug --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+developer$ oc debug --tty --image docker.io/sjfke/rhel-ubi8-soma:8.6
 # -or- 
-developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel8-ubi-soma:8.6
+developer$ oc run soma-pod --rm -i --tty --image docker.io/sjfke/rhel-ubi8-soma:8.6
 If you don't see a command prompt, try pressing enter.
 [soma@soma-pod ~]$ cat /etc/motd
 ##############################################################################
