@@ -117,7 +117,7 @@ After updating the Docker file, to rebuild and push, this is for 8.5 to 8.6.
 PS1> cat <dockerhub-win10-access-token.txt> | docker login -u sjfke --password-stdin
 PS1> docker build --no-cache --tag sjfke/rhel-ubi8-soma:8.6 -f ./Dockerfile $pwd
 PS1> docker run -it --name crazy-frog sjfke/rhel-ubi8-soma:8.6
-PS1> docker images # need IMAGE ID for tag
+PS1> docker images | select -first 5 # need IMAGE ID for tag
 PS1> docker tag b5244edad760 sjfke/rhel-ubi8-soma:8.6
 PS1> docker push sjfke/rhel-ubi8-soma:8.6
 
