@@ -1,0 +1,35 @@
+# https://examples.openshift.pub/deploy/#simple-deployment
+#
+# kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
+# developer$ oc apply -f soma-cli-deployment.yaml
+# developer$ oc exec --stdin --tty pod/<pod-name> -- bash
+# developer$ oc delete deployment.apps/soma-cli-deployment
+# kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: soma-cli-deployment
+    app.kubernetes.io/component: soma-cli-deployment
+    app.kubernetes.io/instance: soma-cli-deployment
+    app.kubernetes.io/part-of: soma-cli-deployment
+    app.openshift.io/runtime: redhat
+  name: soma-cli-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soma-cli-deployment
+  template:
+    metadata:
+      labels:
+        app: soma-cli-deployment
+        deploymentconfig: soma-cli
+    spec:
+      containers:
+      - image: "docker.io/sjfke/rhel-ubi8-soma:latest" # "quay.io/sjfke/rhel-ubi8-soma:latest"
+        imagePullPolicy: Always
+        name: soma-cli-deployment
+        command: [ "/bin/sh", "-c", "tail -f /dev/null" ]
+        resources: {}
