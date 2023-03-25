@@ -1,35 +1,35 @@
 # https://examples.openshift.pub/deploy/#simple-deployment
 #
 # kubeadmin$ oc adm policy add-scc-to-group anyuid system:authenticated --namespace="<project>"
-# developer$ oc apply -f busybox-deployment.yaml
+# developer$ oc apply -f soma-cli-deployment.yaml
 # developer$ oc exec --stdin --tty pod/<pod-name> -- bash
-# developer$ oc delete deployment.apps/busybox-deployment
+# developer$ oc delete deployment.apps/soma-cli-deployment
 # kubeadmin$ oc adm policy remove-scc-from-group anyuid system:authenticated --namespace="<project>"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: busybox-deployment
-    app.kubernetes.io/component: busybox-deployment
-    app.kubernetes.io/instance: busybox-deployment
-    app.kubernetes.io/part-of: busybox-deployment
+    app: soma-cli-deployment
+    app.kubernetes.io/component: soma-cli-deployment
+    app.kubernetes.io/instance: soma-cli-deployment
+    app.kubernetes.io/part-of: soma-cli-deployment
     app.openshift.io/runtime: redhat
-  name: busybox-deployment
+  name: soma-cli-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: busybox-deployment
+      app: soma-cli-deployment
   template:
     metadata:
       labels:
-        app: busybox-deployment
-        deploymentconfig: busybox
+        app: soma-cli-deployment
+        deploymentconfig: soma-cli
     spec:
       containers:
-      - image: busybox
+      - image: "docker.io/sjfke/rhel-ubi8-soma:latest" # "quay.io/sjfke/rhel-ubi8-soma:latest"
         imagePullPolicy: Always
-        name: busybox-deployment
+        name: soma-cli-deployment
         command: [ "/bin/sh", "-c", "tail -f /dev/null" ]
         resources: {}
