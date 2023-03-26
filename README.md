@@ -41,7 +41,7 @@ In each case a `<prefix>-deployment.yaml` file is provided which can be applied 
 
 ## SomaCLI
 
-Provides a RHEL UBI-8 non-root Bash Shell and includes the following additional packages:
+Provides a non-root Bash Shell based on RHEL UBI-8 with the following additional packages:
 
 * *nmap-ncat*, *bind-utils*, *iputils*, *ip* packages and a preconfigured *sudo*
 
