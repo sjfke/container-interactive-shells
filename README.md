@@ -41,13 +41,13 @@ In each case a `<prefix>-deployment.yaml` file is provided which can be applied 
 
 ## SomaCLI
 
-RHEL UBI8 Interactive with non-root Bash Shell with login that includes:
+Provides a RHEL UBI-8 non-root Bash Shell and includes the following additional packages:
 
 * *nmap-ncat*, *bind-utils*, *iputils*, *ip* packages and a preconfigured *sudo*
 
 ### Interactive Bash Shell
 
-The RHEL UBI 8 image includes:
+The RHEL UBI-8 image includes:
 * [sudoers](https://en.wikipedia.org/wiki/Sudo): with: 'soma ALL=(ALL) NOPASSWD:ALL'
 * [nmap-ncat](https://nmap.org/ncat/guide/index.html): nc, ncat
 * [bind-utils](https://www.mankier.com/package/bind-utils): nslookup, dig, host, nsupdate, arpaname
